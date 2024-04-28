@@ -7,8 +7,7 @@ import {
   Post,
   Query,
   Request,
-  SerializeOptions, UseGuards,
-  UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 
 import {
