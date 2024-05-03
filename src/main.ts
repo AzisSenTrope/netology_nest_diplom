@@ -4,19 +4,19 @@ import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import * as session from 'express-session';
 import * as passport from 'passport';
-import {resolve} from "path";
+import { resolve } from 'path';
 
 export const environment = process.env.NODE_ENV;
 export const ENV_FILE_PATH = resolve(
-    __dirname,
-    '..',
-    'env',
-    `.${environment}.env`,
+  __dirname,
+  '..',
+  'env',
+  `.${environment}.env`,
 );
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  dotenv.config({path: ENV_FILE_PATH});
+  dotenv.config({ path: ENV_FILE_PATH });
 
   const sessionMiddleware = session({
     secret: process.env.AUTH_SECRET,

@@ -3,8 +3,11 @@ import { Model } from 'mongoose';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import {Reservation, ReservationDocument} from './schema/reservation.schema';
-import {CreateReservationDto, ReservationSearchParams} from "./reservatoin.types";
+import { Reservation, ReservationDocument } from './schema/reservation.schema';
+import {
+  CreateReservationDto,
+  ReservationSearchParams,
+} from './reservatoin.types';
 
 @Injectable()
 export class ReservationService {

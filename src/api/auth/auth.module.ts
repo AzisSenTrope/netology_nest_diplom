@@ -11,10 +11,6 @@ import { SessionSerializer } from './session.serializer';
     UsersModule,
     PassportModule,
     PassportModule.register({ session: true }),
-    // JwtModule.register({
-    //   secret: jwtConstants.secret,
-    //   signOptions: { expiresIn: '60s' },
-    // }),
   ],
   providers: [LocalStrategy, AuthService, SessionSerializer],
   exports: [AuthService],

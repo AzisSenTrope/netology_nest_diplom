@@ -5,20 +5,20 @@ import {
   ForbiddenException,
   Get,
   Param,
-  Post, Request,
-  SerializeOptions, UseGuards,
+  Post,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 
-
-import {CreateReservationParams} from "./reservatoin.types";
-import {RoomService} from "../hotel/room/room.service";
-import {ReservationService} from "./reservation.service";
-import {HotelDocument} from "../hotel/hotel/schema/hotel.schema";
-import {ID} from "../../common/types";
-import {Roles} from "../auth/decorators/roles.auth-decorator";
-import {USER_ROLE} from "../../common/consts";
-import {AuthenticatedGuard} from "../auth/guards/authenticated.guard";
-import {RolesGuard} from "../auth/guards/roles.guard";
+import { CreateReservationParams } from './reservatoin.types';
+import { RoomService } from '../hotel/room/room.service';
+import { ReservationService } from './reservation.service';
+import { HotelDocument } from '../hotel/hotel/schema/hotel.schema';
+import { ID } from '../../common/types';
+import { Roles } from '../auth/decorators/roles.auth-decorator';
+import { USER_ROLE } from '../../common/consts';
+import { AuthenticatedGuard } from '../auth/guards/authenticated.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
 
 @Controller()
 export class ReservationApiController {
@@ -31,11 +31,11 @@ export class ReservationApiController {
   @UseGuards(AuthenticatedGuard, RolesGuard)
   @Post('client/reservations')
   async createClientReservation(
-      @Request() req,
-      @Body() data: CreateReservationParams,
+    @Request() req,
+    @Body() data: CreateReservationParams,
   ) {
     const user = req.user;
-    const {startDate, endDate} = data;
+    const { startDate, endDate } = data;
 
     const hotelRoom = await this.hotelRoomService.findById(data.hotelRoom);
 
@@ -44,7 +44,7 @@ export class ReservationApiController {
       dateEnd: new Date(endDate),
       userId: user._id,
       hotelId: (hotelRoom.hotel as HotelDocument)._id as unknown as ID,
-      roomId: hotelRoom._id as unknown  as ID,
+      roomId: hotelRoom._id as unknown as ID,
     });
   }
 

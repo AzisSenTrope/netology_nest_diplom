@@ -1,7 +1,7 @@
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import {Hotel} from "../../hotel/schema";
+import { Hotel } from '../../hotel/schema';
 
 @Schema()
 export class HotelRoom {

@@ -6,7 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Message, SupportRequest } from '../schema';
 import { MessageDocument } from '../schema/message.schema';
 import { SupportRequestDocument } from '../schema/support-request.schema';
-import {GetChatListParams, SendMessageParams} from "../support-request.types";
+import { GetChatListParams, SendMessageParams } from '../support-request.types';
 
 @Injectable()
 export class SupportRequestService {

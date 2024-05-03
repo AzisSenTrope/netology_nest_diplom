@@ -14,15 +14,15 @@ import {
   CreateSupportRequestMessageParams,
   CreateSupportRequestParams,
   GetSupportRequestsQueryParams,
-  MarkAsReadParams
-} from "./support-request.types";
-import {Roles} from "../auth/decorators/roles.auth-decorator";
-import {USER_ROLE} from "../../common/consts";
-import {SupportRequestClientService} from "./services/support-request-client.service";
-import {SupportRequestEmployeeService} from './services/support-request-employee.service'
-import {SupportRequestService} from './services/support-request.service'
-import {AuthenticatedGuard} from "../auth/guards/authenticated.guard";
-import {RolesGuard} from "../auth/guards/roles.guard";
+  MarkAsReadParams,
+} from './support-request.types';
+import { Roles } from '../auth/decorators/roles.auth-decorator';
+import { USER_ROLE } from '../../common/consts';
+import { SupportRequestClientService } from './services/support-request-client.service';
+import { SupportRequestEmployeeService } from './services/support-request-employee.service';
+import { SupportRequestService } from './services/support-request.service';
+import { AuthenticatedGuard } from '../auth/guards/authenticated.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
 
 @Controller()
 export class SupportRequestApiController {
@@ -41,9 +41,9 @@ export class SupportRequestApiController {
   @Post('common/support-requests/:id/messages')
   @Roles(USER_ROLE.CLIENT, USER_ROLE.MANAGER)
   async sendMessage(
-      @Param('id') id: string,
-      @Request() req,
-      @Body() body: CreateSupportRequestMessageParams,
+    @Param('id') id: string,
+    @Request() req,
+    @Body() body: CreateSupportRequestMessageParams,
   ) {
     const user = req.user;
 

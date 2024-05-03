@@ -5,13 +5,15 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { Message, SupportRequest } from '../schema';
 import { SupportRequestDocument } from '../schema/support-request.schema';
-import {CreateSupportRequestParams, MarkMessagesAsReadParams} from "../support-request.types";
-import {User} from "../../users/schemas/users.schema";
-import {ID} from "../../../common/types";
+import {
+  CreateSupportRequestParams,
+  MarkMessagesAsReadParams,
+} from '../support-request.types';
+import { User } from '../../users/schemas/users.schema';
+import { ID } from '../../../common/types';
 
 @Injectable()
-export class SupportRequestClientService
-{
+export class SupportRequestClientService {
   constructor(
     @InjectModel(SupportRequest.name)
     private supportRequestModel: Model<SupportRequest>,
@@ -41,16 +43,14 @@ export class SupportRequestClientService
     return await request.save();
   }
 
-  // Предполагается, что прочитанными помечаются только сообщения не от клиента.
-  // Предполагается, что на запрос может отвечать не один менедежер, а несколько.
-  // Поэтому фильтруем сообщения НЕ от клиента - помечаем прочитанными только сообщения от отстальных пользователей, т.е. от менеджеров
   async markMessagesAsRead({
     user,
     supportRequest,
     createdBefore,
   }: MarkMessagesAsReadParams) {
-    const supportRequestDocument =
-      await this.supportRequestModel.findById(supportRequest);
+    const supportRequestDocument = await this.supportRequestModel.findById(
+      supportRequest,
+    );
     const messageIds = supportRequestDocument.get('messages');
 
     return await this.messageModel.updateMany(

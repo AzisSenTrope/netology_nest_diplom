@@ -6,25 +6,23 @@ import {
   Param,
   Query,
   Put,
-  UseInterceptors,
-  UploadedFiles,
-  SerializeOptions, UseGuards,
+  UseGuards,
 } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express/multer';
-import {HotelService} from "./hotel.service";
-import {CreateHotelDto, SearchHotelParams, UpdateHotelParams} from "./hotel.types";
-import {ID} from "../../../common/types";
-import {Roles} from "../../auth/decorators/roles.auth-decorator";
-import {RolesGuard} from "../../auth/guards/roles.guard";
-import {AuthenticatedGuard} from "../../auth/guards/authenticated.guard";
-import {USER_ROLE} from "../../../common/consts";
-
+import { HotelService } from './hotel.service';
+import {
+  CreateHotelDto,
+  SearchHotelParams,
+  UpdateHotelParams,
+} from './hotel.types';
+import { ID } from '../../../common/types';
+import { Roles } from '../../auth/decorators/roles.auth-decorator';
+import { RolesGuard } from '../../auth/guards/roles.guard';
+import { AuthenticatedGuard } from '../../auth/guards/authenticated.guard';
+import { USER_ROLE } from '../../../common/consts';
 
 @Controller()
 export class HotelController {
-  constructor(
-    private readonly hotelService: HotelService,
-  ) {}
+  constructor(private readonly hotelService: HotelService) {}
 
   @Roles(USER_ROLE.ADMIN)
   @UseGuards(AuthenticatedGuard, RolesGuard)
@@ -45,5 +43,12 @@ export class HotelController {
   @Put('admin/hotels/:id')
   async updateHotel(@Param('id') id: ID, @Body() data: UpdateHotelParams) {
     return await this.hotelService.update(id, data);
+  }
+
+  @Roles(USER_ROLE.ADMIN)
+  @UseGuards(AuthenticatedGuard, RolesGuard)
+  @Get('admin/hotels/:id')
+  async getHotel(@Param('id') id: ID) {
+    return await this.hotelService.findById(id);
   }
 }

@@ -7,11 +7,11 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 
-import {USER_ROLE} from "../../common/consts";
-import {MessageDocument} from "./schema/message.schema";
-import {SupportRequestDocument} from "./schema/support-request.schema";
-import {SupportRequestService} from "./services/support-request.service";
-import {Roles} from "../auth/decorators/roles.auth-decorator";
+import { USER_ROLE } from '../../common/consts';
+import { MessageDocument } from './schema/message.schema';
+import { SupportRequestDocument } from './schema/support-request.schema';
+import { SupportRequestService } from './services/support-request.service';
+import { Roles } from '../auth/decorators/roles.auth-decorator';
 
 @WebSocketGateway({ namespace: 'support-request' })
 export class SupportRequestGateway {

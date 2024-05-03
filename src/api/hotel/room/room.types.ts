@@ -1,23 +1,18 @@
-import {ID} from "../../../common/types";
-
-export type UpdateHotelDto = {
-    title: string;
-    description: string;
-}
+import { ID } from '../../../common/types';
 
 export type CreateRoomParams = {
   description: string;
   hotelId: string;
   images: Express.Multer.File[];
-}
+};
 
 export type UpdateHotelRoomParams = Omit<CreateRoomParams, 'images'> & {
   images: string[];
-}
+};
 
 export type SearchRoomsParams = {
-    limit: number;
-    offset: number;
-    hotel: ID;
-    isEnabled?: boolean;
-}
+  limit: number;
+  offset: number;
+  hotel: ID;
+  isEnabled?: boolean;
+};

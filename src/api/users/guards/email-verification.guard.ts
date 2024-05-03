@@ -1,17 +1,24 @@
-import {BadRequestException, CanActivate, ExecutionContext, Injectable, UnauthorizedException} from '@nestjs/common';
+import {
+  BadRequestException,
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import {UsersService} from "../users.service";
+import { UsersService } from '../users.service';
 
 @Injectable()
 export class EmailVerificationGuard implements CanActivate {
-  constructor(private reflector: Reflector, private userService: UsersService) {}
+  constructor(
+    private reflector: Reflector,
+    private userService: UsersService,
+  ) {}
 
   async canActivate(context: ExecutionContext) {
-    console.log('AuthenticatedGuard')
     const request = context.switchToHttp().getRequest();
-    console.log({requestBode: request.body})
-    const isEmailRepeated = !!await this.userService.findByEmail(request.body.email);
-    console.log({isEmailRepeated});
+    const isEmailRepeated = !!(await this.userService.findByEmail(
+      request.body.email,
+    ));
 
     if (isEmailRepeated) {
       throw new BadRequestException();

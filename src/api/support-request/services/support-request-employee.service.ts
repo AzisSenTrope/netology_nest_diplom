@@ -1,16 +1,15 @@
-import {Model} from 'mongoose';
+import { Model } from 'mongoose';
 
-import {Injectable} from '@nestjs/common';
-import {InjectModel} from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 
-import {Message, SupportRequest} from '../schema';
-import {User} from "../../users/schemas/users.schema";
-import {USER_ROLE} from "../../../common/consts";
-import {MarkMessagesAsReadParams} from "../support-request.types";
+import { Message, SupportRequest } from '../schema';
+import { User } from '../../users/schemas/users.schema';
+import { USER_ROLE } from '../../../common/consts';
+import { MarkMessagesAsReadParams } from '../support-request.types';
 
 @Injectable()
-export class SupportRequestEmployeeService
-{
+export class SupportRequestEmployeeService {
   constructor(
     @InjectModel(SupportRequest.name)
     private supportRequestModel: Model<SupportRequest>,
@@ -19,14 +18,13 @@ export class SupportRequestEmployeeService
     @InjectModel(User.name) private userModel: Model<User>,
   ) {}
 
-  // Предполагается что прочитанными помечаются только сообщения от клиента, но прямого доступа к его ID у нас нет
-  // Поэтому фильтруем сообщения по роли автора - помечаем прочитанными только сообщения НЕ ОТ менеджеров
   async markMessagesAsRead({
     supportRequest,
     createdBefore,
   }: MarkMessagesAsReadParams) {
-    const supportRequestDocument =
-      await this.supportRequestModel.findById(supportRequest);
+    const supportRequestDocument = await this.supportRequestModel.findById(
+      supportRequest,
+    );
     const messageIds = supportRequestDocument.get('messages');
 
     const managerUsers = await this.userModel
@@ -51,12 +49,12 @@ export class SupportRequestEmployeeService
       .get('user');
 
     return await this.messageModel
-        .countDocuments({
-            supportRequest,
-            user,
-            isRead: false,
-        })
-        .exec();
+      .countDocuments({
+        supportRequest,
+        user,
+        isRead: false,
+      })
+      .exec();
   }
 
   async closeRequest(supportRequestId: string): Promise<void> {

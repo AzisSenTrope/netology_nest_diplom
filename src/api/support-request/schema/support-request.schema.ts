@@ -1,9 +1,9 @@
-import {HydratedDocument, Schema as MongooseSchema} from 'mongoose';
+import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 
-import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-import {Message} from './message.schema';
-import {User} from "../../users/schemas/users.schema";
+import { Message } from './message.schema';
+import { User } from '../../users/schemas/users.schema';
 
 @Schema()
 export class SupportRequest {
